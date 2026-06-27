@@ -466,7 +466,7 @@ export function buildEditor(root: HTMLElement): void {
 
   const xShareLink = document.createElement('a');
   const xUrl = new URL('https://twitter.com/intent/tweet');
-  xUrl.searchParams.set('url', 'https://octo8080x.github.io/dot_art_editer/');
+  xUrl.searchParams.set('url', 'https://dot-art-editer.octo8080x.deno.net/');
   xUrl.searchParams.set('text', 'DotArt Editer - ブラウザで動作するドット絵エディタ');
   xShareLink.className = 'x-share-btn';
   xShareLink.href = xUrl.href;
