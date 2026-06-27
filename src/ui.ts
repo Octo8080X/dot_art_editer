@@ -472,7 +472,7 @@ export function buildEditor(root: HTMLElement): void {
   xShareLink.href = xUrl.href;
   xShareLink.target = '_blank';
   xShareLink.rel = 'noopener noreferrer';
-  xShareLink.textContent = '𝕏 シェア';
+  xShareLink.textContent = '𝕏 Share';
   linkRow.appendChild(xShareLink);
 
   leftPanel.appendChild(linkRow);
