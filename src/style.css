@@ -59,11 +59,16 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
-.github-link {
-  display: block;
+.link-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-top: 16px;
   padding-top: 12px;
   border-top: 1px solid var(--border);
+}
+.github-link {
+  flex: 1;
   font-size: 11px;
   color: var(--text);
   text-decoration: none;
@@ -71,6 +76,18 @@ body {
   word-break: break-all;
 }
 .github-link:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+.x-share-btn {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+.x-share-btn:hover {
   opacity: 1;
   color: var(--accent);
 }

@@ -453,14 +453,29 @@ export function buildEditor(root: HTMLElement): void {
   fileSection.appendChild(clearBtn);
   leftPanel.appendChild(fileSection);
 
-  // ---- GitHub リンク ----
+  // ---- GitHub リンク / X 共有ボタン ----
+  const linkRow = el('div', 'link-row');
+
   const githubLink = document.createElement('a');
   githubLink.className = 'github-link';
   githubLink.href = 'https://github.com/Octo8080X/dot_art_editer';
   githubLink.target = '_blank';
   githubLink.rel = 'noopener noreferrer';
   githubLink.textContent = 'GitHub: dot_art_editer';
-  leftPanel.appendChild(githubLink);
+  linkRow.appendChild(githubLink);
+
+  const xShareLink = document.createElement('a');
+  const xUrl = new URL('https://twitter.com/intent/tweet');
+  xUrl.searchParams.set('url', 'https://octo8080x.github.io/dot_art_editer/');
+  xUrl.searchParams.set('text', 'DotArt Editer - ブラウザで動作するドット絵エディタ');
+  xShareLink.className = 'x-share-btn';
+  xShareLink.href = xUrl.href;
+  xShareLink.target = '_blank';
+  xShareLink.rel = 'noopener noreferrer';
+  xShareLink.textContent = '𝕏 シェア';
+  linkRow.appendChild(xShareLink);
+
+  leftPanel.appendChild(linkRow);
 
   // ---- 入力ハンドラ ----
   new InputHandler(canvas, state, {
