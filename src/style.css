@@ -1,0 +1,437 @@
+:root {
+  --text: #c9c7d1;
+  --text-h: #f3f4f6;
+  --bg: #16171d;
+  --panel-bg: #1e1f27;
+  --panel-bg-2: #24262f;
+  --border: #2e303a;
+  --accent: #c084fc;
+  --accent-bg: rgba(192, 132, 252, 0.15);
+  --accent-border: rgba(192, 132, 252, 0.6);
+  --danger: #ef4444;
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 14px/1.4 var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#app {
+  width: 100%;
+  height: 100svh;
+}
+
+/* ---- 2 カラムレイアウト ---- */
+.editor-layout {
+  display: flex;
+  height: 100svh;
+  width: 100%;
+}
+
+.left-panel {
+  width: 300px;
+  min-width: 300px;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--panel-bg);
+  border-right: 1px solid var(--border);
+  padding: 12px;
+}
+
+.site-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  padding: 4px 0 12px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.github-link {
+  display: block;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.6;
+  word-break: break-all;
+}
+.github-link:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.right-panel {
+  flex: 1;
+  height: 100%;
+  overflow: auto;
+  background: #101116;
+  display: flex;
+  position: relative;
+}
+
+.canvas-wrap {
+  margin: auto;
+  padding: 24px;
+}
+
+.editor-canvas {
+  display: block;
+  image-rendering: pixelated;
+  background: #000;
+  box-shadow: 0 0 0 1px var(--border), 0 8px 30px rgba(0, 0, 0, 0.5);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+/* ---- パネルセクション ---- */
+.panel-section {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.panel-section:last-child {
+  border-bottom: none;
+}
+
+.panel-title {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+/* ---- ボタン ---- */
+button {
+  font-family: var(--sans);
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--panel-bg-2);
+  color: var(--text);
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+button:hover {
+  border-color: var(--accent-border);
+}
+
+.btn-row {
+  display: flex;
+  gap: 6px;
+}
+.tool-btn {
+  flex: 1;
+  padding: 8px 4px;
+  font-size: 13px;
+}
+.tool-btn.active {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--text-h);
+}
+
+.wide-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  text-align: center;
+}
+.wide-btn.primary {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--text-h);
+}
+.wide-btn.danger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.file-label {
+  display: block;
+}
+
+/* ---- 色 ---- */
+.color-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.color-input {
+  width: 48px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+}
+.color-label {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 3px;
+  margin-top: 8px;
+}
+.swatch {
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}
+.swatch:hover {
+  transform: scale(1.1);
+}
+
+/* 使用中の色 縦型ストリップ */
+.color-strip-panel {
+  width: 26px;
+  min-width: 26px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--panel-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+.color-strip-panel::-webkit-scrollbar {
+  width: 3px;
+}
+.color-strip-panel::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+.strip-swatch {
+  width: 22px;
+  height: 7px;
+  min-height: 7px;
+  padding: 0;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.strip-swatch:hover {
+  border-color: var(--accent-border);
+  transform: scale(1.08);
+}
+
+/* ---- フィールド ---- */
+.field {
+  display: block;
+  margin-bottom: 10px;
+}
+.field-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+.field-value {
+  font-family: var(--mono);
+  color: var(--accent);
+}
+.num-input,
+.range-input {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--panel-bg-2);
+  color: var(--text-h);
+  font-family: var(--mono);
+}
+.range-input {
+  padding: 0;
+  accent-color: var(--accent);
+}
+
+.image-lib-select {
+  display: block;
+  width: 100%;
+  padding: 6px 8px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--panel-bg-2);
+  color: var(--text-h);
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+}
+.image-lib-select:hover {
+  border-color: var(--accent-border);
+}
+
+.check-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.check-field input {
+  accent-color: var(--accent);
+}
+
+.file-input {
+  width: 100%;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+/* ---- 移動 D-pad ---- */
+.dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 4px;
+  max-width: 160px;
+  margin: 0 auto 10px;
+}
+.dpad-btn {
+  padding: 8px;
+  font-size: 16px;
+}
+.dpad-btn.up {
+  grid-column: 2;
+  grid-row: 1;
+}
+.dpad-btn.left {
+  grid-column: 1;
+  grid-row: 2;
+}
+.dpad-btn.right {
+  grid-column: 3;
+  grid-row: 2;
+}
+.dpad-btn.down {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.info-text {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-align: center;
+  color: var(--text);
+  padding: 6px;
+  background: var(--panel-bg-2);
+  border-radius: 6px;
+}
+
+/* ---- ミニマップ（全体マップ） ---- */
+.minimap-panel {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  background: rgba(30, 31, 39, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+.minimap-title {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  cursor: grab;
+  user-select: none;
+}
+.minimap-canvas {
+  display: block;
+  image-rendering: pixelated;
+  background: #101116;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.minimap-hint {
+  margin-top: 6px;
+  font-size: 10px;
+  color: var(--text);
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* ---- アニメーションプレビュー ---- */
+.anim-preview-panel {
+  position: absolute;
+  z-index: 10;
+  background: rgba(30, 31, 39, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.anim-preview-canvas {
+  display: block;
+  image-rendering: pixelated;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.anim-ctrl-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.anim-ctrl-label {
+  font-size: 11px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.anim-ctrl-input {
+  width: 56px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--panel-bg-2);
+  color: var(--text-h);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-align: right;
+}
+
+/* プレビューボタンアクティブ状態 */
+.wide-btn.active {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--text-h);
+}
