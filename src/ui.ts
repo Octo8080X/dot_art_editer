@@ -88,7 +88,7 @@ export function buildEditor(root: HTMLElement): void {
   };
 
   // ---- サイト名 ----
-  const siteTitle = el('div', 'site-title', 'DotArt Editer');
+  const siteTitle = el('div', 'site-title', 'Dot Art Editer');
   leftPanel.appendChild(siteTitle);
 
   // ---- ツール選択 ----
@@ -467,7 +467,7 @@ export function buildEditor(root: HTMLElement): void {
   const xShareLink = document.createElement('a');
   const xUrl = new URL('https://twitter.com/intent/tweet');
   xUrl.searchParams.set('url', 'https://dot-art-editer.octo8080x.deno.net/');
-  xUrl.searchParams.set('text', 'DotArt Editer - ブラウザで動作するドット絵エディタ');
+  xUrl.searchParams.set('text', 'Dot Art Editer - ブラウザで動作するドット絵エディタ');
   xShareLink.className = 'x-share-btn';
   xShareLink.href = xUrl.href;
   xShareLink.target = '_blank';

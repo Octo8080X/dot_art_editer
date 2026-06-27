@@ -1,4 +1,4 @@
-# DotArt Editer
+# Dot Art Editer
 
 ブラウザで動作するドット絵（ピクセルアート）エディタです。  
 TypeScript + Vite で構築されており、Canvas 2D API のみで描画しています。
